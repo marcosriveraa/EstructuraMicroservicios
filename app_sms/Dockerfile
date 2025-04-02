@@ -13,8 +13,11 @@ WORKDIR /var/www/html
 # Copiar los archivos del proyecto dentro del contenedor
 COPY app_sms /var/www/html
 
-# Instalar la librería php-amqplib automáticamente dentro del contenedor
-RUN composer require php-amqplib/php-amqplib
+# Crear el archivo composer.json si no existe
+RUN composer init --no-interaction --name=app/app_sms --require=php-amqplib/php-amqplib
+
+# Instalar las dependencias de Composer
+RUN composer install
 
 # Comando por defecto al iniciar el contenedor
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "/var/www/html"]
