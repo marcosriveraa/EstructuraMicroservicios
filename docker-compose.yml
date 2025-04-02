@@ -14,7 +14,7 @@ services:
   rabbitmq:
     build:
       context: .  # Usa el Dockerfile.rabbitmq
-      dockerfile: Dockerfile.rabbitmq
+      dockerfile: Dockerfile
     container_name: rabbitmq
     restart: always
     ports:
