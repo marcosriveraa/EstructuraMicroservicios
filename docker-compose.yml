@@ -1,14 +1,25 @@
-
 services:
+  app_sms:
+    build:
+      context: .   # Usa el Dockerfile en el directorio actual
+      dockerfile: Dockerfile
+    container_name: app_sms
+    volumes:
+      - ./app_sms:/var/www/html
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq_network
+
   rabbitmq:
     build:
-      context: ./  # Ruta a tu directorio donde está el Dockerfile de RabbitMQ
-      dockerfile: Dockerfile
+      context: .  # Usa el Dockerfile.rabbitmq
+      dockerfile: Dockerfile.rabbitmq
     container_name: rabbitmq
     restart: always
     ports:
-      - 9890:15672  # Interfaz de gestión de RabbitMQ
-      - 8888:5672   # Puerto estándar de RabbitMQ
+      - "9890:15672"  # Interfaz web de RabbitMQ
+      - "8888:5672"   # Puerto de conexión de RabbitMQ
     hostname: stats
     volumes:
       - ./data:/var/lib/rabbitmq/mnesia  
@@ -16,14 +27,9 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
     networks:
-      rabbitmq_net:
-        aliases:
-          - rabbitmq_host
+      - rabbitmq_network
 
 networks:
-  rabbitmq_net:
+  rabbitmq_network:
     name: rabbitmq_network
     driver: bridge
-
-volumes:
-  rabbitmq_data:
