@@ -1,17 +1,21 @@
 # Usar una imagen base de PHP
 FROM php:8.1-cli
 
-# Actualizar y instalar dependencias básicas
-RUN apt-get update && apt-get install -y libzip-dev libssl-dev libsasl2-dev pkg-config
+# Instalar dependencias necesarias para AMQP y otras librerías
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    libssl-dev \
+    libsasl2-dev \
+    librabbitmq-dev \
+    pkg-config \
+    && apt-get clean
 
-# Instalar y habilitar extensión amqp
-RUN pecl install amqp && docker-php-ext-enable amqp
+# Instalar la extensión AMQP
+RUN pecl install amqp \
+    && docker-php-ext-enable amqp
 
 # Instalar la extensión de sockets
 RUN docker-php-ext-install sockets
-
-# Limpiar la caché
-RUN apt-get clean
 
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
