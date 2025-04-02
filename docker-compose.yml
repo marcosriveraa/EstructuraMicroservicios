@@ -12,7 +12,7 @@ services:
       - 8888:5672   # Puerto estándar de RabbitMQ
     hostname: stats
     volumes:
-      - ./data:/var/lib/rabbitmq/mnesia  # Persistencia de los datos de RabbitMQ
+      - ./data:/var/lib/rabbitmq/mnesia  
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
