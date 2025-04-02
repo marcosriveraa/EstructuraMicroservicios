@@ -20,22 +20,6 @@ services:
         aliases:
           - rabbitmq_host
 
-  app_sms:
-    build:
-      context: ./app_sms
-      dockerfile: Dockerfile
-    container_name: app_sms
-    networks:
-      - rabbitmq_net
-    depends_on:
-      - rabbitmq  
-    ports:
-      - "8080:80"  
-    volumes:
-      - ./app_sms/src:/var/www/html
-    environment:
-      - RABBITMQ_HOST=rabbitmq  
-
 networks:
   rabbitmq_net:
     name: rabbitmq_network
