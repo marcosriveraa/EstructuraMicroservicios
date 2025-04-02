@@ -33,4 +33,4 @@ EXPOSE 80
 CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
 
 # Ejecutar Composer install cuando el contenedor se construya
-RUN composer install
+# RUN composer install
