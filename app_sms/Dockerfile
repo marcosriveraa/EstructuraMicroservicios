@@ -2,7 +2,11 @@
 FROM php:8.1-cli
 
 # Instalar dependencias necesarias (php-amqplib para RabbitMQ)
-RUN apt-get update && apt-get install -y libzip-dev \
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    libssl-dev \
+    libsasl2-dev \
+    pkg-config \
     && pecl install amqp \
     && docker-php-ext-enable amqp
 
