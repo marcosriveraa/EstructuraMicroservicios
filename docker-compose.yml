@@ -1,16 +1,4 @@
 services:
-  app_sms:
-    build:
-      context: .   # Usa el Dockerfile en el directorio actual
-      dockerfile: Dockerfile
-    container_name: app_sms
-    volumes:
-      - ./app_sms:/var/www/html
-    depends_on:
-      - rabbitmq
-    networks:
-      - rabbitmq_network
-
   rabbitmq:
     build:
       context: .  # Usa el Dockerfile.rabbitmq
