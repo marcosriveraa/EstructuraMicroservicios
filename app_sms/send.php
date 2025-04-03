@@ -3,13 +3,14 @@ require 'vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Ramsey\Uuid\Uuid; 
 date_default_timezone_set('Europe/Madrid');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $mensaje = $_POST['mensaje'] ?? 'Mensaje Vacío';
     $telefono = $_POST['telefono'] ?? 'Teléfono Vacío';
     $timestamp = date('Y-m-d H:i:s');
-    $mensaje_id = uniqid('msg_', true);
+    $mensaje_id = Uuid::uuid4()->toString();
 
     // Datos del mensaje principal
     $data = [
