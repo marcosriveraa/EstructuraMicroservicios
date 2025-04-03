@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $json_data = json_encode($data);
 
     // Conectar con RabbitMQ
-    $connection = new AMQPStreamConnection('rabbitmq', 5672, 'admin', 'admin');
+    $connection = new AMQPStreamConnection('rabbitmq', 5672, 'tu_usuario', 'tu_password');
     $channel = $connection->channel();
 
     // Declarar la cola de SMS como durable para que persista
