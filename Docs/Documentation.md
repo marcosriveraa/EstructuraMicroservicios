@@ -38,12 +38,11 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 
 - Los **senders** y **consumers** se comunican a través de **RabbitMQ** mediante el uso de colas y exchanges.
 - Los mensajes son enviados en formato **JSON** para asegurar la interoperabilidad.
-- Los **senders** publican mensajes en una cola llamada `cola_peticiones`.
+- Los **senders** publican mensajes en una asignada a cada proceso, si esta dedicado al envio de sms, el sender publicará el mensaje en una cola llamada cola_sms
 - Los **consumers** se suscriben a esta cola y procesan los mensajes en orden.
 
 ## Configuración de RabbitMQ
 
 - **RabbitMQ** está configurado para ser tolerante a fallos con colas durables.
 - Las colas están configuradas con "acknowledgement" para garantizar que los mensajes solo se marcan como procesados una vez que se han completado.
-
 
