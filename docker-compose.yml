@@ -1,13 +1,13 @@
 services:
   rabbitmq:
     build:
-      context: .  # Usa el Dockerfile.rabbitmq
+      context: .  
       dockerfile: Dockerfile
     container_name: rabbitmq
     restart: always
     ports:
-      - "9890:15672"  # Interfaz web de RabbitMQ
-      - "8888:5672"   # Puerto de conexión de RabbitMQ
+      - "9890:15672"
+      - "8888:5672"
     hostname: stats
     volumes:
       - ./data:/var/lib/rabbitmq/mnesia  
@@ -16,6 +16,21 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
     networks:
       - rabbitmq_network
+
+  sender:
+    build:
+      context: ./app_sms
+      dockerfile: Dockerfile
+    container_name: php_sender
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./app_sms:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - rabbitmq_network
+    ports:
+      - "8080:80"  # Exponer el servidor web en el puerto 8080
 
 networks:
   rabbitmq_network:
