@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $channel->close();
     $connection->close();
 
-    echo 'Mnesaje enviado ' . htmlspecialchars($json_data)
+    echo 'Mnesaje enviado ' . htmlspecialchars($json_data);
 } else {
-    echo 'Metodo no permitido'
+    echo 'Metodo no permitido';
 }
