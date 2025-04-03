@@ -17,7 +17,7 @@ como un intermediario para asegurar la correcta entrega y procesamiento de las p
 3. **Consumer** consume los mensajes de la cola y procesa las peticiones.
 4. **Resultado** el consumidor puede almacenar los resultado, enviar notificaciones, o realizar otras acciones según el caso.
 
-5. ## Arquitectura
+## Arquitectura
 
 La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **RabbitMQ** como middleware. Los componentes principales son:
 
@@ -29,13 +29,8 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 
 ## Diagrama de la arquitectura
 
-+-------------------+           +------------------+           +------------------+           +-------------------+
-|   Usuarios (UI)   |  <--->    |    Sender        |  <--->    |   RabbitMQ       |  <--->    |    Consumer       |
-|                   |           |  (Microservicio) |           |  (Middleware)    |           |  (Microservicio)  |
-+-------------------+           +------------------+           +------------------+           +-------------------+
-                                                                        |
-                                                                      (Consume mensaje)
-                                      
+![Diagrama de Arquitectura](images/arquitectura-microservicios.png)
+
 1. El **sender** publica el mensaje en la cola de RabbitMQ.
 2. El **consumer** lee el mensaje desde la cola y lo procesa.
 
@@ -50,4 +45,5 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 
 - **RabbitMQ** está configurado para ser tolerante a fallos con colas durables.
 - Las colas están configuradas con "acknowledgement" para garantizar que los mensajes solo se marcan como procesados una vez que se han completado.
+
 
