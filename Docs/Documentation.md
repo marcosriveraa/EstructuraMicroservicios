@@ -29,7 +29,13 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 
 ## Diagrama de la arquitectura
 
-
++-------------------+           +------------------+           +------------------+           +-------------------+
+|   Usuarios (UI)   |  <--->    |    Sender        |  <--->    |   RabbitMQ       |  <--->    |    Consumer       |
+|                   |           |  (Microservicio) |           |  (Middleware)    |           |  (Microservicio)  |
++-------------------+           +------------------+           +------------------+           +-------------------+
+                                                                        |
+                                                                      (Consume mensaje)
+                                      
 1. El **sender** publica el mensaje en la cola de RabbitMQ.
 2. El **consumer** lee el mensaje desde la cola y lo procesa.
 
