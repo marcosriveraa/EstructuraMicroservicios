@@ -1,16 +1,16 @@
 services:
   rabbitmq:
     build:
-      context: .  
+      context: .
       dockerfile: Dockerfile
     container_name: rabbitmq
     restart: always
     ports:
-      - "9890:15672"
-      - "8888:5672"
+      - "9890:15672"  # Interfaz web
+      - "8888:5672"   # Puerto de conexión de RabbitMQ
     hostname: stats
     volumes:
-      - ./data:/var/lib/rabbitmq/mnesia  
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia  # Volumen persistente para los datos
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
@@ -36,3 +36,7 @@ networks:
   rabbitmq_network:
     name: rabbitmq_network
     driver: bridge
+
+volumes:
+  rabbitmq_data:  # Volumen persistente para RabbitMQ
+    driver: local  # Se utiliza un volumen Docker local
