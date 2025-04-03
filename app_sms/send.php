@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $channel = $connection->channel();
 
     // Declarar colas (se pueden unificar si ya están creadas en otro script)
-    $channel->queue_declare('cola_sms', false, false, false, false);
-    $channel->queue_declare('logs', false, false, false, false);
+    $channel->queue_declare('cola_sms', true, false, false, false);
+    $channel->queue_declare('logs', true, false, false, false);
 
     // Enviar mensaje a la cola de SMS
     $msg = new AMQPMessage($json_data);
