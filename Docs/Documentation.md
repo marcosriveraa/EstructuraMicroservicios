@@ -11,3 +11,8 @@ como un intermediario para asegurar la correcta entrega y procesamiento de las p
 - **Consumer**: Aplicacón que consume los mensajes de la cola de **RabbitMQ** y realiza las tareas necesarias.
 - **RabbbitMQ**: Servidor de mensajería que actúa como intermediario entre los **Senders** y los **Consumers**.
 
+## Flujo de trabajo
+1. **Sender** recibe las peticiones.
+2. **Sender** envia las peticiones a **RabbitMQ**.
+3. **Consumer** consume los mensajes de la cola y procesa las peticiones.
+4. **Resultado** el consumidor puede almacenar los resultado, enviar notificaciones, o realizar otras acciones según el caso.
