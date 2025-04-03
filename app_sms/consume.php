@@ -36,7 +36,7 @@ while ($msg = $channel->basic_get('cola_sms')) {
         'mensaje' => $data['mensaje'],
         'telefono' => $data['telefono'],
         'fecha' => $timestamp,
-        'consumido' => 'Sí',
+        'Cuerpo' => 'registro consumido por un consumer',
         'fecha_consumo' => $timestamp
     ];
 
