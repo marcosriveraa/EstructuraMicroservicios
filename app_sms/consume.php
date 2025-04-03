@@ -41,9 +41,9 @@ while ($msg = $channel->basic_get('cola_sms')) {
             'fecha_consumo' => $timestamp
         ];
 
-        // Crear el mensaje de log y enviarlo a la cola de logs
+        // Crear el mensaje de log y enviarlo a la cola de logs (sin persistencia)
         $json_log_data = json_encode($log_data);
-        $msg_log = new AMQPMessage($json_log_data, ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+        $msg_log = new AMQPMessage($json_log_data);
         $channel->basic_publish($msg_log, '', 'logs');
     }
 }

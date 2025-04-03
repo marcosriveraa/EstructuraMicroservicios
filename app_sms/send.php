@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Declarar la cola de logs como durable
     $channel->queue_declare('logs', false, true, false, false);
 
-    // Enviar mensaje a la cola de SMS
-    $msg = new AMQPMessage($json_data, ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+    // Enviar mensaje a la cola de SMS (sin persistencia)
+    $msg = new AMQPMessage($json_data);
     $channel->basic_publish($msg, '', 'cola_sms');
 
     $cuerpo = 'Petición enviada por un sender';
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $json_data_log = json_encode($log_data);
 
-    // Enviar mensaje a la cola de logs
-    $msglog = new AMQPMessage($json_data_log, ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+    // Enviar mensaje a la cola de logs (sin persistencia)
+    $msglog = new AMQPMessage($json_data_log);
     $channel->basic_publish($msglog, '', 'logs');
 
     // Cerrar conexión
