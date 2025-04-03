@@ -13,9 +13,10 @@ $mensajes = [];
 
 while ($msg = $channel->basic_get('cola_sms')) {
     $data = json_decode($msg->body, true);
-    $mensajes = $data;
-    $msg->ack();
+    echo "ID: {$data['id']} - Mensaje: {$data['mensaje']} - Teléfono: {$data['telefono']} - Fecha: {$data['fecha']} <br>";
+    $msg->ack(); 
 }
+
 
 $channel->close();
 $connection->close();
