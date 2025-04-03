@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 date_default_timezone_set('Europe/Madrid');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $mensaje = $_POST['mensaje'] ?? 'Mensaje Vacío';
     $telefono = $_POST['telefono'] ?? 'Teléfono Vacío';
@@ -24,14 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $connection = new AMQPStreamConnection('rabbitmq', 5672, 'admin', 'admin');
     $channel = $connection->channel();
 
-    // Declarar colas (se pueden unificar si ya están creadas en otro script)
-    $channel->queue_declare('cola_sms', true, false, false, false);
-    $channel->queue_declare('logs', true, false, false, false);
+    // Declarar la cola de SMS como durable para que persista
+    $channel->queue_declare('cola_sms', false, true, false, false);
+
+    // Declarar la cola de logs como durable
+    $channel->queue_declare('logs', false, true, false, false);
 
     // Enviar mensaje a la cola de SMS
-    $msg = new AMQPMessage($json_data);
+    $msg = new AMQPMessage($json_data, ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
     $channel->basic_publish($msg, '', 'cola_sms');
-    $cuerpo = 'Peticion enviada por un sender';
+
+    $cuerpo = 'Petición enviada por un sender';
+    
     // Datos del log
     $log_data = [
         'id' => $mensaje_id,
@@ -44,14 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $json_data_log = json_encode($log_data);
 
     // Enviar mensaje a la cola de logs
-    $msglog = new AMQPMessage($json_data_log);
+    $msglog = new AMQPMessage($json_data_log, ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
     $channel->basic_publish($msglog, '', 'logs');
 
     // Cerrar conexión
     $channel->close();
     $connection->close();
 
-    echo 'Mensaje enviado: ' . htmlspecialchars($json_data); // 
+    echo 'Mensaje enviado: ' . htmlspecialchars($json_data); 
 } else {
     echo 'Método no permitido';
 }
