@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-
+date_default_timezone_set('Europe/Madrid');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $mensaje = $_POST['mensaje'] ?? 'Mensaje Vacío';
     $telefono = $_POST['telefono'] ?? 'Teléfono Vacío';
