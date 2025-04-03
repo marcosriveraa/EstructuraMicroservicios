@@ -47,3 +47,38 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 - **RabbitMQ** está configurado para ser tolerante a fallos con colas durables.
 - Las colas están configuradas con "acknowledgement" para garantizar que los mensajes solo se marcan como procesados una vez que se han completado.
 
+  ## Sender
+
+El servicio **sender** es responsable de recibir peticiones y enviarlas a RabbitMQ. A continuación se describe cómo funciona:
+
+### Flujo de un Sender
+
+1. El sender recibe una petición (por ejemplo, a través de una API REST o una interfaz de usuario).
+2. El sender formatea los datos en formato **JSON**.
+3. El sender se conecta a RabbitMQ y envía el mensaje a la cola `cola_peticiones`.
+4. Si el envío es exitoso, el sender devuelve una respuesta de éxito.
+
+### Ejemplo de código del Sender (PHP)
+
+```php
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+
+$connection = new AMQPStreamConnection('rabbitmq_host', 5672, 'usuario', 'contraseña');
+$channel = $connection->channel();
+
+$channel->queue_declare('cola_peticiones', false, true, false, false);
+
+$data = [
+    'mensaje' => 'Solicitud de ejemplo',
+    'fecha' => date('Y-m-d H:i:s'),
+    'telefono' => '123456789'
+];
+
+$msg = new AMQPMessage(json_encode($data), ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]);
+$channel->basic_publish($msg, '', 'cola_peticiones');
+
+$channel->close();
+$connection->close();
+
+
