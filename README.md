@@ -1,3 +1,3 @@
 ## Documentación
 
-Lee la documentación completa [aquí](docs/documentation.md).
+Lee la documentación completa [aquí](Docs/Documentation.md).
