@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telefono = $_POST['telefono'] ?? 'Telefono Vacio';
 
     $data = [
-        'mensaje' = $mensaje,
-        'telefono' = $telefono
+        'mensaje' => $mensaje,
+        'telefono' => $telefono
     ];
 
     $json_data = json_encode($data);
