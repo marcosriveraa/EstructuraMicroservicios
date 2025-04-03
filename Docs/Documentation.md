@@ -16,3 +16,33 @@ como un intermediario para asegurar la correcta entrega y procesamiento de las p
 2. **Sender** envia las peticiones a **RabbitMQ**.
 3. **Consumer** consume los mensajes de la cola y procesa las peticiones.
 4. **Resultado** el consumidor puede almacenar los resultado, enviar notificaciones, o realizar otras acciones según el caso.
+
+5. ## Arquitectura
+
+La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **RabbitMQ** como middleware. Los componentes principales son:
+
+- **Senders**: Servicios que envían mensajes a RabbitMQ. Estos servicios suelen recibir datos a través de un formulario web o API y, a continuación, formatean el mensaje en formato JSON y lo envían a una cola de RabbitMQ.
+  
+- **RabbitMQ**: Gestiona las colas de mensajes donde los mensajes enviados por los **senders** se almacenan temporalmente antes de ser consumidos por los **consumers**.
+
+- **Consumers**: Servicios que consumen los mensajes de la cola y los procesan. Pueden realizar tareas como almacenar datos en una base de datos, enviar correos electrónicos, procesar pagos, entre otros.
+
+## Diagrama de la arquitectura
+
+![Diagrama de Arquitectura](images/arquitectura-microservicios.png)
+
+1. El **sender** publica el mensaje en la cola de RabbitMQ.
+2. El **consumer** lee el mensaje desde la cola y lo procesa.
+
+### Comunicación entre microservicios
+
+- Los **senders** y **consumers** se comunican a través de **RabbitMQ** mediante el uso de colas y exchanges.
+- Los mensajes son enviados en formato **JSON** para asegurar la interoperabilidad.
+- Los **senders** publican mensajes en una cola llamada `cola_peticiones`.
+- Los **consumers** se suscriben a esta cola y procesan los mensajes en orden.
+
+## Configuración de RabbitMQ
+
+- **RabbitMQ** está configurado para ser tolerante a fallos con colas durables.
+- Las colas están configuradas con "acknowledgement" para garantizar que los mensajes solo se marcan como procesados una vez que se han completado.
+
