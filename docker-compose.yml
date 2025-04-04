@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   rabbitmq:
     build:
@@ -8,40 +6,58 @@ services:
     container_name: rabbitmq
     restart: always
     ports:
-      - "9890:15672"  # Interfaz web de RabbitMQ
-      - "8888:5672"   # Puerto de conexión de RabbitMQ
+      - "9890:15672"
+      - "8888:5672"
+      - "15692:15692"
     hostname: stats
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq/mnesia  # Volumen persistente
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+    command: >
+      bash -c "rabbitmq-plugins enable --offline rabbitmq_prometheus && rabbitmq-server"
     networks:
       - rabbitmq_network
 
-  sender:
+  app_email:
     build:
-      context: ./app_sms
+      context: ./app_email
       dockerfile: Dockerfile
-    container_name: php_sender
+    container_name: php_email
     depends_on:
       - rabbitmq
     volumes:
-      - ./app_sms:/var/www/html
+      - ./app_email:/var/www/html
     working_dir: /var/www/html
     networks:
       - rabbitmq_network
     ports:
-      - "8080:80"  # Exponer el servidor web
+      - "8082:80"
+
+  app_whatsapp:
+    build:
+      context: ./app_whatsapp
+      dockerfile: Dockerfile
+    container_name: php_whatsapp
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./app_whatsapp:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - rabbitmq_network
+    ports:
+      - "8083:80"
 
   prometheus:
     image: prom/prometheus
     container_name: prometheus
     restart: always
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Configuración de Prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "9090:9090"  # Interfaz web de Prometheus
+      - "9090:9090"
     networks:
       - rabbitmq_network
 
@@ -50,7 +66,7 @@ services:
     container_name: grafana
     restart: always
     ports:
-      - "3000:3000"  # Interfaz web de Grafana
+      - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
