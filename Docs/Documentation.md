@@ -124,4 +124,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo 'Método no permitido';
 }
 
+##Consumer
+El servicio **consumer** es responsble de leer las peticiones almacenadas en la cola de **RabbitMQ** y procesarlas. A continuación se describe cómo funciona:
+
+## Flujo de un Consumer
+
+1. El consumer se conecta al servidor de mensajeria (**RabbitMQ**).
+2. Una vez se ha conectado exitosamente abre un canal lógico sobre la conexión. Es el canal por el cual se comunican cliente y broker.
+3. El **consumer** se "engancha" a una cola (**queue**) específica desde la que quiere recibir mensaje. Si esta no existe puede crearla (según configuración).
+4. El **consumer** se pone en modo "escucha", esperando a que lleguen los mensajes a esa cola. Estos mensajes pueden ser:
+- Leídos uno a uno (con **ACK** manual o automático).
+- Procesados de forma asíncrona.
+5. Cuando recibe un mensaje, ejecuta el codigo necesario para procesarlo: por ejemplo, guardar en base de datos, enviar un email, hacer una llamada API, etc.
+6. Informa al broker que el mensaje fue procesado correctamente. Si no lo hace (por error o crash), el mensaje puede reenviarse o redirigirse (depende de la política configurada).
 
