@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('rabbitmq', 5672, 'admin', 'admin');
 $channel = $connection->channel();
@@ -24,9 +25,27 @@ if ($msg) {
         echo "<p><strong>Asunto:</strong> " . htmlspecialchars($datos['asunto']) . "</p>";
         echo "<p><strong>Cuerpo:</strong><br>" . nl2br(htmlspecialchars($datos['cuerpo'])) . "</p>";
 
+        $destinatario = $datos['destinatario'];
+        $asunto = $datos['asunto'];
+        $cuerpo_correo = $datos['cuerpo'];
+
         $cuerpo = "correo recibido";
 
         $mensaje_id = $datos['id'];
+
+        $log_data = [
+            'id' => $mensaje_id,
+            'destinatario' => $destinatario ?? 'N/A',
+            'asunto' => $asunto ?? 'N/A',
+            'cuerpo_correo' => $cuerpo_correo ?? 'N/A',
+            'cuerpo' => $cuerpo,
+            'fecha_consumo' => $timestamp
+        ];
+    
+        $json_data_log = json_encode($log_data);
+    
+        $msglog = new AMQPMessage($json_data_log);
+        $channel->basic_publish($msglog, '', 'logs');
 
         
 
@@ -40,22 +59,6 @@ if ($msg) {
 } else {
     echo "<p>No hay mensajes en la cola.</p>";
 }
-
-// logs
-
-    $log_data = [
-        'id' => $mensaje_id,
-        'destinatario' => $destinatario,
-        'asunto' => $asunto,
-        'cuerpo' => $cuerpo,
-        'fecha' => $timestamp,
-        'cuerpo' => $cuerpo
-    ];
-
-    $json_data_log = json_encode($log_data);
-
-    $msglog = new AMQPMessage($json_data_log);
-    $channel->basic_publish($msglog, '', 'logs');
 
 $channel->close();
 $connection->close();
