@@ -19,6 +19,8 @@
           <div class="card-body">
             <form action="enviar_telegram.php" method="POST">
               <div class="mb-3">
+                <label for="numerotelef">Telefono Destinatario</label>
+                <input type="text" class="form-control" name="numerotelef" id="numerotelef" placeholder="Ej: 1234567890" required>
                 <label for="mensaje" class="form-label">Mensaje</label>
                 <textarea class="form-control" name="mensaje" id="mensaje" rows="4" placeholder="Escribe tu mensaje..." required></textarea>
               </div>
