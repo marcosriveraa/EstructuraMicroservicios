@@ -198,6 +198,8 @@ $connection->close();
 echo $mensajes ?: "<p>No hay mensajes en la cola.</p>";
 ?>
 ```
+## Formato de JSON
+
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
 2. Ejecutamos en nuestra máquina **docker compose build**
