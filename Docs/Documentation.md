@@ -47,7 +47,7 @@ La arquitectura del sistema sigue un patrón **Producer-Consumer** utilizando **
 - **RabbitMQ** está configurado para ser tolerante a fallos con colas durables.
 - Las colas están configuradas con "acknowledgement" para garantizar que los mensajes solo se marcan como procesados una vez que se han completado.
 
-  ## Sender
+## Sender
 
 El servicio **sender** es responsable de recibir peticiones y enviarlas a RabbitMQ. A continuación se describe cómo funciona:
 
