@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ```
-##Consumer
+## Consumer
 El servicio **consumer** es responsble de leer las peticiones almacenadas en la cola de **RabbitMQ** y procesarlas. A continuación se describe cómo funciona:
 
 ## Flujo de un Consumer
