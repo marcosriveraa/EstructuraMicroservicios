@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $msg = new AMQPMessage($json_data);
     $channel->basic_publish($msg, '', 'cola_sms');
 
-    $cuerpo = 'Petición enviada por un sender';
+    $cuerpo = 'Petición enviada por un sender (SMS)';
     
     // Datos del log
     $log_data = [
