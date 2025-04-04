@@ -199,4 +199,6 @@ echo $mensajes ?: "<p>No hay mensajes en la cola.</p>";
 ?>
 ```
 ## Despliegue
-Para desplegar este proyecto utilizando docker, tan solo tenemos que descargar este repositorio de GitHub. En nuestra maquina insertamos el comando **docker compose buidl**, con esto construiremos los contenedores, una vez este proceso haya finalizado, utilizamos **docker compose up -d**, con esto tendremos desplegada toda la arquitectura de microservicios.
+1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
+2. Ejecutamos en nuestra máquina **docker compose build**
+3. Ejecutamos en nuestra máquina **docker compose up -d**
