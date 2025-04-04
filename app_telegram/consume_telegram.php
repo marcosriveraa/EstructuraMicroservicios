@@ -6,18 +6,16 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 date_default_timezone_set('Europe/Madrid');
 
-// Conectar a RabbitMQ
 $connection = new AMQPStreamConnection('rabbitmq', 5672, 'admin', 'admin');
 $channel = $connection->channel();
 
-// Declarar la cola de SMS y la cola de logs como durables (persistentes)
-$channel->queue_declare('cola_sms', false, true, false, false);
+$channel->queue_declare('cola_telegram', false, true, false, false);
 $channel->queue_declare('logs', false, true, false, false);
 
 $mensajes = "";
 $log_data = [];
 
-while ($msg = $channel->basic_get('cola_sms')) {
+while ($msg = $channel->basic_get('cola_telegram')) {
     if ($msg) {
         $data = json_decode($msg->body, true);
 
@@ -41,17 +39,12 @@ while ($msg = $channel->basic_get('cola_sms')) {
             'fecha_consumo' => $timestamp
         ];
 
-        // Crear el mensaje de log y enviarlo a la cola de logs (sin persistencia)
         $json_log_data = json_encode($log_data);
         $msg_log = new AMQPMessage($json_log_data);
         $channel->basic_publish($msg_log, '', 'logs');
     }
 }
-
-// Cerrar la conexión
-$channel->close();
+ $channel->close();
 $connection->close();
 
-// Mostrar los mensajes consumidos
 echo $mensajes ?: "<p>No hay mensajes en la cola.</p>";
-?>
