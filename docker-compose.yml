@@ -8,6 +8,7 @@ services:
     ports:
       - "9890:15672"
       - "8888:5672"
+      - "15692:15692"
     hostname: stats
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq/mnesia
