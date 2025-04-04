@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Procesar datos
 
-    $datos = ['id' => $mensaje_id, 'numero' => $numero,  'cuerpo' => $cuerpo];
+    $datos = ['id' => $mensaje_id, 'numero' => $numero,  'cuerpo' => $cuerpo, 'fecha' => $timestamp];
     $data = json_encode($datos);
 
 // crear objeto mensaje
