@@ -14,7 +14,7 @@
     <script>
         $(document).ready(function() {
             $("#consumeBtn").click(function() {
-                $.get("consume.php", function(response) {
+                $.get("consume_telegram.php", function(response) {
                     $("#mensajeContainer").html(response);
                 });
             });
