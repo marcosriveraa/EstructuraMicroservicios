@@ -60,4 +60,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo 'Mensaje enviado: ' . htmlspecialchars($json_data); 
 } else {
     echo 'Método no permitido';
-}
+} 
