@@ -198,3 +198,5 @@ $connection->close();
 echo $mensajes ?: "<p>No hay mensajes en la cola.</p>";
 ?>
 ```
+## Despliegue
+Para desplegar este proyecto utilizando docker, tan solo tenemos que descargar este repositorio de GitHub. En nuestra maquina insertamos el comando **docker compose buidl**, con esto construiremos los contenedores, una vez este proceso haya finalizado, utilizamos **docker compose up -d**, con esto tendremos desplegada toda la arquitectura de microservicios.
