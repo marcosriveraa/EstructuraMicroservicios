@@ -199,6 +199,7 @@ echo $mensajes ?: "<p>No hay mensajes en la cola.</p>";
 ?>
 ```
 ## Formato de JSON
+### Formato JSON envío mensaje a cola RabbitMQ
 ```
 object		{4}
 id: 22c578ff-29d7-4941-80e3-d75a46d8548f
