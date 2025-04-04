@@ -34,9 +34,8 @@ while ($msg = $channel->basic_get('cola_telegram')) {
             'id' => $data['id'],
             'mensaje' => $data['mensaje'],
             'telefono' => $data['telefono'],
-            'fecha' => $timestamp,
+            'fecha_consumo' => $timestamp,
             'cuerpo' => 'Registro consumido por un consumidor(TELEGRAM)',
-            'fecha_consumo' => $timestamp
         ];
 
         $json_log_data = json_encode($log_data);
