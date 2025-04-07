@@ -221,7 +221,7 @@ Estas restricciones destinara las limitaciones y uso de cada token, se pueden di
 3. **Uso Mensual**: Este token esta limitado a un numero de usos especificos dentro de un mes, una vez se supere este numero de usos, el token no permitirá relizar acciones.
 
 ## Envio de token
--- El token sera enviado en la cabecera en formato JSON.
+- El token sera enviado en la cabecera en formato JSON.
 
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
