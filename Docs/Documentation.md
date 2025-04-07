@@ -210,9 +210,9 @@ fecha : 2025-04-04 12:57:07
 ```
 ## Autentificación mediante Token Bearer
 Este token se utilizará para gestionar el acceso y uso seguro del sistema, de tal manera que garantiza el acceso a los recursos de manera segura y ordenada. El sistema de token se basará en 3 grupos.
-1. Token de aplicación: Este Token define los permisos y accesos permitidos para las aplicaciones.
-2. Token de grupo de usuarios: Este token define los permisos y accesos permitidos para un grupo de usuarios en concreto.
-3. Token de usuario: Este token define los permisos y accesos permitidos para un determinado usuario.
+1. **Token de aplicación:** Este Token define los permisos y accesos permitidos para las aplicaciones.
+2. **Token de grupo de usuarios:** Este token define los permisos y accesos permitidos para un grupo de usuarios en concreto.
+3. **Token de usuario:** Este token define los permisos y accesos permitidos para un determinado usuario.
 
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
