@@ -214,6 +214,12 @@ Este token se utilizará para gestionar el acceso y uso seguro del sistema, de t
 2. **Token de grupo de usuarios:** Este token define los permisos y accesos permitidos para un grupo de usuarios en concreto.
 3. **Token de usuario:** Este token define los permisos y accesos permitidos para un determinado usuario.
 
+## Restricciones de uso de Token
+Estas restricciones destinara las limitaciones y uso de cada token, se pueden diferenciar 3 tipos de limitaciones:
+1. **Uso Infinito**: Este token permite el acceso y uso infinito para los recursos, es decir, podra utilizarse sin limite de usos.
+2. **Usos Maximos**: Este token esta limitado a un numero de usos especificos, una vez se supere este numero de usos, el token no permitirá realizar acciones.
+3. **Uso Mensual**: Este token esta limitado a un numero de usos especificos dentro de un mes, una vez se supere este numero de usos, el token no permitirá relizar acciones.
+
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
 2. Ejecutamos en nuestra máquina **docker compose build**
