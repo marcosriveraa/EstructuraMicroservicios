@@ -208,6 +208,9 @@ telefono : 1234567890
 fecha : 2025-04-04 12:57:07
 
 ```
+## Autentificación mediante Bearer Token
+
+
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
 2. Ejecutamos en nuestra máquina **docker compose build**
