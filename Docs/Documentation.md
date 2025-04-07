@@ -208,7 +208,7 @@ telefono : 1234567890
 fecha : 2025-04-04 12:57:07
 
 ```
-## Autentificación mediante Bearer Token
+## Autentificación mediante Token Bearer
 
 
 ## Despliegue
