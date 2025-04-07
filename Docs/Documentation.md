@@ -224,7 +224,9 @@ Estas restricciones destinara las limitaciones y uso de cada token, se pueden di
 - El token sera enviado en la cabecera en formato JSON.
 
 ## Gestión y manejo de Tokens
-Se utilizará un panel de gestión de tokens desarrollado para poder crear tokens a nivel de aplicación, grupo de usuarios y usuarios finales, en este panel podremos crear y eliminar tokens, otorgar la función del token (Limitar a numero de usos, infinito, etc) y gestionar los grupos de usuario y usuarios del sistema y otorgar tokens sobre ellos.
+- Se utilizará un panel de gestión de tokens desarrollado para poder crear tokens a nivel de aplicación, grupo de usuarios y usuarios finales, en este panel podremos crear y eliminar tokens, otorgar la función del token (Limitar a numero de usos, infinito, etc) y gestionar los grupos de usuario y usuarios del sistema y otorgar tokens sobre ellos.
+- Para la validación de tokens se desarrolla un validador de tokens, el cual este se encarga de recibir las peticiones de los senders antes de realizar su acción y validar el token, si el token es correcto y permitido para realizar esa acción este lo comunicará, al contario, se limitara la accion solicitada.
+- Se almacena en una base de datos sobre el validador de tokens el cual este almacena los estado de los tokens, como numero de intentos realizados y numero de intentos maximos permitidos, etc. Tambien almacenará en caso de no ser permitida una acción por una limitación del token el motivo por el cual no se ha permitido realizar la acción.
 
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
