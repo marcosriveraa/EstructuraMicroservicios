@@ -223,6 +223,9 @@ Estas restricciones destinara las limitaciones y uso de cada token, se pueden di
 ## Envio de token
 - El token sera enviado en la cabecera en formato JSON.
 
+## Gestión y manejo de Tokens
+Se utilizará un panel de gestión de tokens desarrollado para poder crear tokens a nivel de aplicación, grupo de usuarios y usuarios finales, en este panel podremos crear y eliminar tokens, otorgar la función del token (Limitar a numero de usos, infinito, etc) y gestionar los grupos de usuario y usuarios del sistema y otorgar tokens sobre ellos.
+
 ## Despliegue
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
 2. Ejecutamos en nuestra máquina **docker compose build**
