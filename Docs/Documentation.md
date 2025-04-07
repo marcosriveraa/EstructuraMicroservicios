@@ -212,3 +212,8 @@ fecha : 2025-04-04 12:57:07
 1. git clone https://github.com/marcosriveraa/EstructuraMicroservicios.git
 2. Ejecutamos en nuestra máquina **docker compose build**
 3. Ejecutamos en nuestra máquina **docker compose up -d**
+
+## Puertos despliegue herramientas
+1. 9890: Puerto de acceso al panel de administración de **RabbitMQ**.
+2. 3000: Puerto de acceso al panel de **Grafana**.
+3. 9090: Puerto de acceso al panel de **Prometheus**.
